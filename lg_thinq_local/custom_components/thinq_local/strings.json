@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "LG ThinQ local cloud",
+        "description": "Home Assistant will act as the ThinQ cloud for your LG appliances. The hostname must resolve to this machine through your LAN's regular DNS (not mDNS, not an IP address). During appliance setup, `common.lgthinq.com` must resolve here too.",
+        "data": {
+          "hostname": "Hostname appliances will connect to",
+          "https_port": "HTTPS port",
+          "mqtts_port": "MQTT (TLS) port",
+          "bind": "Listen address (empty = all)"
+        },
+        "data_description": {
+          "https_port": "Appliances look for 443 during setup. Change only if 443 is forwarded to this port.",
+          "mqtts_port": "Some appliances refuse anything but 8883."
+        }
+      }
+    },
+    "error": {
+      "invalid_hostname": "Enter a DNS hostname such as thinq.lan - not an IP address and not a .local name.",
+      "port_in_use": "Could not listen on one of the ports: {error}"
+    },
+    "abort": {
+      "single_instance_allowed": "Already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Decoder profile",
+        "description": "Pick which decoder an appliance uses. `auto` matches on the appliance's ThinQ model id; unknown models fall back to `generic`, which only records raw frames.",
+        "data": {
+          "device": "Appliance",
+          "profile": "Profile"
+        }
+      }
+    },
+    "abort": {
+      "no_devices": "No appliance has connected yet."
+    }
+  }
+}
