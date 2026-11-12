@@ -79,6 +79,10 @@ restart Home Assistant.
    - on your router, forward (DNAT) TCP 443 addressed to the Home Assistant
      IP to port 8443, for traffic coming from the appliances only
 
+   The same applies to MQTT port 8883, which the Mosquitto app occupies:
+   either free it in that app's network settings, or listen on e.g. `18883`,
+   set "MQTT port appliances connect to" to `8883`, and forward 8883 to 18883.
+
    That forward only works if the appliances reach Home Assistant through the
    router, i.e. they are on a different VLAN/subnet.
 

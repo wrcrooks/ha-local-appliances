@@ -21,6 +21,7 @@ from .const import (
     CONF_HOSTNAME,
     CONF_HTTPS_ADVERTISE_PORT,
     CONF_HTTPS_PORT,
+    CONF_MQTTS_ADVERTISE_PORT,
     CONF_MQTTS_PORT,
     DEFAULT_HOSTNAME,
     DEFAULT_HTTPS_PORT,
@@ -70,8 +71,9 @@ class ThinqLocalConfigFlow(ConfigFlow, domain=DOMAIN):
                 CONF_MQTTS_PORT: user_input[CONF_MQTTS_PORT],
                 CONF_BIND: user_input.get(CONF_BIND, "").strip(),
             }
-            if user_input.get(CONF_HTTPS_ADVERTISE_PORT):
-                data[CONF_HTTPS_ADVERTISE_PORT] = user_input[CONF_HTTPS_ADVERTISE_PORT]
+            for key in (CONF_HTTPS_ADVERTISE_PORT, CONF_MQTTS_ADVERTISE_PORT):
+                if user_input.get(key):
+                    data[key] = user_input[key]
             if not _valid_hostname(data[CONF_HOSTNAME]):
                 errors[CONF_HOSTNAME] = "invalid_hostname"
             elif problem := await _can_listen(
@@ -95,14 +97,20 @@ class ThinqLocalConfigFlow(ConfigFlow, domain=DOMAIN):
                         CONF_HTTPS_PORT,
                         default=defaults.get(CONF_HTTPS_PORT, DEFAULT_HTTPS_PORT),
                     ): PORT,
+                    vol.Optional(
+                        CONF_HTTPS_ADVERTISE_PORT,
+                        description={
+                            "suggested_value": defaults.get(CONF_HTTPS_ADVERTISE_PORT)
+                        },
+                    ): PORT,
                     vol.Required(
                         CONF_MQTTS_PORT,
                         default=defaults.get(CONF_MQTTS_PORT, DEFAULT_MQTTS_PORT),
                     ): PORT,
                     vol.Optional(
-                        CONF_HTTPS_ADVERTISE_PORT,
+                        CONF_MQTTS_ADVERTISE_PORT,
                         description={
-                            "suggested_value": defaults.get(CONF_HTTPS_ADVERTISE_PORT)
+                            "suggested_value": defaults.get(CONF_MQTTS_ADVERTISE_PORT)
                         },
                     ): PORT,
                     vol.Optional(CONF_BIND, default=defaults.get(CONF_BIND, "")): str,
