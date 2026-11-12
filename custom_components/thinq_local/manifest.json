@@ -1,11 +1,13 @@
 {
   "domain": "thinq_local",
   "name": "LG ThinQ Local",
-  "codeowners": [],
+  "codeowners": ["@wrcrooks"],
   "config_flow": true,
   "dependencies": [],
+  "documentation": "https://github.com/wrcrooks/ha-local-appliances",
   "integration_type": "hub",
   "iot_class": "local_push",
+  "issue_tracker": "https://github.com/wrcrooks/ha-local-appliances/issues",
   "requirements": [],
   "single_config_entry": true,
   "version": "0.1.0"

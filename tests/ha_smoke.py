@@ -1,7 +1,7 @@
 """Smoke test inside a real Home Assistant: config flow, a simulated washer and
 dryer, the start button, the options flow, diagnostics, reload and unload.
 
-Run from lg_thinq_local/ (needs Docker; nothing is published or left behind):
+Run from the repository root (needs Docker; nothing is published or left behind):
 
     docker run --rm --entrypoint python3 --tmpfs /config \
       -v "$PWD/custom_components:/config/custom_components:ro" \

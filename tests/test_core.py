@@ -1,6 +1,6 @@
 """Tests for the Home Assistant independent core.
 
-Run from lg_thinq_local/:   python3 -m unittest discover -s tests -v
+Run from the repository root:   python3 -m unittest discover -s tests -v
 
 The appliance frames are real captures published with the rethink project's
 test-suite (WT7300CW washer, DLE7300WE dryer). The end-to-end test plays a
