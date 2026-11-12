@@ -1,0 +1,13 @@
+name: Get LG ThinQ Local
+version: "0.1.0"
+slug: get_thinq_local
+description: Installs the LG ThinQ Local integration into Home Assistant, then stops
+url: https://github.com/wrcrooks/ha-local-appliances
+startup: once
+boot: manual
+init: false
+arch:
+  - amd64
+  - aarch64
+map:
+  - homeassistant_config:rw

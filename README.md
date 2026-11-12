@@ -37,6 +37,17 @@ model lands on `generic` at first - see
 
 ## Install
 
+### From the Apps page (Home Assistant OS)
+
+1. Settings > Apps > Install app > three-dot menu > **Repositories**. Add
+   `https://github.com/wrcrooks/ha-local-appliances`.
+2. Install **Get LG ThinQ Local** and press **Start**. It copies the
+   integration into `/config/custom_components/` and stops; nothing keeps
+   running. Its Log tab shows the result.
+3. Restart Home Assistant.
+
+Start the app again to update the integration later.
+
 ### With HACS
 
 1. HACS > three-dot menu > **Custom repositories**. Add
@@ -146,6 +157,7 @@ custom_components/thinq_local/
     devices/       AA..BB framing and per-model decoders
   __init__.py      hub: persistence, appliance lifecycle
   sensor.py, binary_sensor.py, button.py, diagnostics.py, config_flow.py
+get_thinq_local/   one-shot installer app for the Apps page
 tools/provision.py Wi-Fi setup without the LG app
 samsung_fridge/    separate: OCF probe and notes for Samsung appliances
 ```
