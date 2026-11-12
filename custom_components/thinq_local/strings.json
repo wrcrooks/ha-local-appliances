@@ -6,13 +6,15 @@
         "description": "Home Assistant will act as the ThinQ cloud for your LG appliances. The hostname must resolve to this machine through your LAN's regular DNS (not mDNS, not an IP address). During appliance setup, `common.lgthinq.com` must resolve here too.",
         "data": {
           "hostname": "Hostname appliances will connect to",
-          "https_port": "HTTPS port",
+          "https_port": "HTTPS port to listen on",
           "mqtts_port": "MQTT (TLS) port",
+          "https_advertise_port": "HTTPS port appliances connect to (only if forwarded)",
           "bind": "Listen address (empty = all)"
         },
         "data_description": {
-          "https_port": "Appliances look for 443 during setup. Change only if 443 is forwarded to this port.",
-          "mqtts_port": "Some appliances refuse anything but 8883."
+          "https_port": "Appliances look for 443 during setup. If 443 is taken on this machine, listen on another port (e.g. 8443) and forward 443 to it.",
+          "mqtts_port": "Some appliances refuse anything but 8883.",
+          "https_advertise_port": "Leave empty unless your router forwards this port to the one above. Set to 443 when 443 is forwarded."
         }
       }
     },

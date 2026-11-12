@@ -1,7 +1,9 @@
 {
   "domain": "thinq_local",
   "name": "LG ThinQ Local",
-  "codeowners": ["@wrcrooks"],
+  "codeowners": [
+    "@wrcrooks"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/wrcrooks/ha-local-appliances",
@@ -10,5 +12,5 @@
   "issue_tracker": "https://github.com/wrcrooks/ha-local-appliances/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

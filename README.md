@@ -72,9 +72,15 @@ restart Home Assistant.
    the hostname from step 1. Keep ports 443 and 8883 unless you forward them;
    appliances look for 443 during setup.
 
-   Port 443 must be free on the Home Assistant host. If a reverse-proxy add-on
-   owns it, choose another port here and DNAT `:443` to it for the appliance
-   VLAN during provisioning.
+   **If port 443 is already taken on the Home Assistant host** (a reverse
+   proxy app, for example), the form says so. Then:
+   - set "HTTPS port to listen on" to a free port such as `8443`
+   - set "HTTPS port appliances connect to" to `443`
+   - on your router, forward (DNAT) TCP 443 addressed to the Home Assistant
+     IP to port 8443, for traffic coming from the appliances only
+
+   That forward only works if the appliances reach Home Assistant through the
+   router, i.e. they are on a different VLAN/subnet.
 
 The first start generates a CA under `/config/.storage/thinq_local/`. The
 appliances pin it. It is included in Home Assistant backups; if it is lost,

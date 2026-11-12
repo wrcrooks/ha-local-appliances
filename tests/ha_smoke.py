@@ -62,12 +62,14 @@ async def main():
     assert flow["type"] == "form", flow
     bad = await hass.config_entries.flow.async_configure(flow["flow_id"], {"hostname": "192.168.1.5", "https_port": 18443, "mqtts_port": 18883, "bind": "127.0.0.1"})
     assert bad["errors"] == {"hostname": "invalid_hostname"}, bad
-    done = await hass.config_entries.flow.async_configure(flow["flow_id"], {"hostname": "thinq.test", "https_port": 18443, "mqtts_port": 18883, "bind": "127.0.0.1"})
+    done = await hass.config_entries.flow.async_configure(flow["flow_id"], {"hostname": "thinq.test", "https_port": 18443, "https_advertise_port": 443, "mqtts_port": 18883, "bind": "127.0.0.1"})
     assert done["type"] == "create_entry", done
     await hass.async_block_till_done()
     entry = hass.config_entries.async_entries("thinq_local")[0]
     assert entry.state.value == "loaded", entry.state
     assert os.path.exists("/config/.storage/thinq_local/ca.key")
+    # listening on 18443 but telling appliances 443: the forwarded-port setup
+    assert entry.runtime_data.cloud.config.api_url == "https://thinq.test:443", entry.runtime_data.cloud.config.api_url
 
     # washer (known model), over a legacy cipher suite
     r, w = await modem(DID, "T1789EFH_F", "201", legacy=True)

@@ -23,6 +23,7 @@ from homeassistant.helpers.storage import Store
 from .const import (
     CONF_BIND,
     CONF_HOSTNAME,
+    CONF_HTTPS_ADVERTISE_PORT,
     CONF_HTTPS_PORT,
     CONF_MQTTS_PORT,
     DOMAIN,
@@ -59,6 +60,7 @@ class Hub:
                 bind=entry.data.get(CONF_BIND, ""),
                 https_port=entry.data[CONF_HTTPS_PORT],
                 mqtts_port=entry.data[CONF_MQTTS_PORT],
+                https_advertise_port=entry.data.get(CONF_HTTPS_ADVERTISE_PORT),
             ),
             self._session_opened,
             self._session_closed,
