@@ -70,12 +70,17 @@ def read_json(sock: ssl.SSLSocket) -> dict:
                 return json.loads(buf)
 
 
+def redact(value):
+    """Mask secrets at any depth: replies echo the network back in nested objects."""
+    if isinstance(value, dict):
+        return {k: "<redacted>" if k in REDACT else redact(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [redact(v) for v in value]
+    return value
+
+
 def show(direction: str, message: dict) -> None:
-    data = {
-        k: ("<redacted>" if k in REDACT else v)
-        for k, v in (message.get("data") or {}).items()
-    }
-    print(f"{direction} {message.get('cmd')}: {json.dumps(data)}")
+    print(f"{direction} {message.get('cmd')}: {json.dumps(redact(message.get('data') or {}))}")
 
 
 def call(sock: ssl.SSLSocket, cmd: str, data: dict) -> dict:
@@ -167,7 +172,7 @@ def main() -> int:
     print(
         f"\nDone: {info.get('modelName', 'the appliance')} "
         f"(type {info.get('deviceType', '?')}, uuid {info.get('uuid', '?')}) will now join "
-        f"'{args.ssid}'.\nWatch Home Assistant for a new LG device. If it sits in "
+        "your Wi-Fi.\nWatch Home Assistant for a new LG device. If it sits in "
         "'connecting' for minutes, power-cycle the appliance once."
     )
     return 0
